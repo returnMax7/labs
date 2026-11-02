@@ -45,13 +45,35 @@ int main()
     printf("\n");
 
     char stroka2[BUFFER_SIZE];
-    printf("\nЗадание 2. Введите строку:\n");
+    int dlina2 = 0;
+    int c2;
+    printf("\nЗадание 2. Введите строку, завершив её \\0, и нажмите Enter:\n");
 
-    if (!ProchitatStroku(stdin, stroka2))
+    while ((c2 = getchar()) != EOF)
+    {
+        if (c2 == '0' && dlina2 > 0 && stroka2[dlina2 - 1] == '\\')
+        {
+            dlina2--;
+            break;
+        }
+
+        if (dlina2 == BUFFER_SIZE - 1)
+        {
+            printf("Слишком длинная строка.\n");
+            return 1;
+        }
+
+        stroka2[dlina2] = char(c2);
+        dlina2++;
+    }
+
+    if (ferror(stdin) || dlina2 > MAX_INPUT_LENGTH)
     {
         printf("Ошибка чтения: допустимо не более %d байт.\n", MAX_INPUT_LENGTH);
         return 1;
     }
+
+    stroka2[dlina2] = '\0';
 
     if (!Zadanie2(stroka2, BUFFER_SIZE))
     {
