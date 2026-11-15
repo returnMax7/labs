@@ -162,10 +162,10 @@ static bool ZapisatStroku(const char* imya_fayla, const char* stroka)
     return fclose(file) == 0 && zapisano;
 }
 
-bool Zadanie3(const char* imya_fayla1, const char* imya_fayla2)
+bool Zadanie3(const char* imya_fayla1, const char* imya_fayla2, FILE* istochnik)
 {
     char* vvod = nullptr;
-    bool zapisano = ProchitatStroku(stdin, vvod, true) && ZapisatStroku(imya_fayla1, vvod);
+    bool zapisano = ProchitatStroku(istochnik, vvod, true) && ZapisatStroku(imya_fayla1, vvod);
     free(vvod);
     if (!zapisano)
         return false;
